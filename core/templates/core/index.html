@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+            *{
+
+             margin: 0;
+             padding: 0;
+             box-size:border-box;
+            }
+            .container{
+
+             width: 80%;
+             margin: 0 auto;
+            
+            }
+
+            .title{
+
+              margin-bottom: 10px ;
+              text-align: center;
+              color: blue;
+              font-size: 30px;
+              font-weight: bold;
+            }
+
+            .title-desc{
+
+             margin-bottom: 20px;
+             color: gray;
+             text-align: center;
+             margin-bottom: 50px;
+            }
+
+            .barcha-dokonlar{
+
+              margin-bottom: 20px;
+              color: green;
+              font-size: 20px;
+              font-weight: 700;
+            } 
+      
+            .dokon-card{
+              padding: 20px;
+              border: 1px    solid black ;
+              border-radius: 10px;
+              margin-bottom:30px;
+            }
+            .mahsulot-listi li{
+                display: flex;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+            .dokon-nomi{
+
+                background-color: blue;
+                color: white;
+                display: inline-block;
+                padding: 12px 20px;
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+            .narxi{
+                color: orange;
+            }
+
+            .arzonlar-title {
+               color: orange;
+               font-size: 24px;
+               font-weight: bold;
+               margin-bottom: 30px;
+            }
+            .arzon-title{
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .arzon-card {
+               background-color:rgb(237, 218, 183);
+               border: 1px solid orange;
+               border-radius: 10px;
+               padding: 15px 20px;
+               margin-bottom: 15px;
+            }
+
+            .arzon-card h4 {
+               color: green;
+               margin-bottom: 5px;
+            }
+
+            .arzon-card p {
+               color: #333;
+            }
+            .soni-title {
+               text-align: center;
+               margin-top: 40px;
+            }
+ 
+            .soni-container {
+               display: flex;
+               flex-wrap: wrap;
+               justify-content: center;
+               gap: 20px;
+            }
+
+            .soni-card {
+            border: 2px solid #444;
+            border-radius: 20px;
+            padding: 25px 25px;
+            width: 350px;
+            background-color: #677ef2;}
+            
+            .soni{
+                color: #3657fc;
+                font-size: larger;
+                font-weight: bolder;
+                margin-bottom: 30px;
+                text-align: left;
+            }
+
+
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+
+    <h1 class="title"> Do'konlar va mahsulotlar</h1>
+    <p class="title-desc">Barcha do'konlar va mahsulotlar royhati</p>
+
+    <h2  class="barcha-dokonlar">Barcha do'konlar</h2>
+
+   {% for item in dokon_list%}
+           <div class="dokon-card">
+        <div class="dokon-nomi">
+            <h3>{{item.dokon.nomi}} ({{item.dokon.manzil}})</h3>
+        </div>
+       
+        <ul class="mahsulot-listi">
+
+           {% for mahsulot in  item.mahsulotlar  %}
+                 
+            <li>
+                <p class="nomi">{{mahsulot.nomi}}</p>
+                <p class="narxi"> {{mahsulot.narxi }}</p>
+           
+            </li>
+
+           {% endfor %}
+
+        </ul>
+    </div>
+   {%endfor%}
+<div class="arzon-title">
+        <h2 class="arzonlar-title"> 10 000 so'mdan arzon mahsulotlar</h2>
+            {% for item in dokon_list %}
+                {% for mahsulot in item.onmingdan_arzoni %}
+                <div class="arzon-card">
+                    <h4>{{ item.dokon.nomi }}({{item.dokon.manzil}})</h4>  
+                <p class="nomi">{{mahsulot.nomi}}</p>
+                <p class="narxi"> {{mahsulot.narxi }}</p>
+           
+                </div>
+                {% endfor %}
+            {% endfor %}
+</div>
+
+<div class="soni-title">
+    <h2 class="soni">Mahsulotlar soni</h2>
+
+    <div class="soni-container">
+        {% for item in dokon_list %}
+        <div class="soni-card">
+            <h4>{{ item.dokon.nomi }} ({{ item.dokon.manzil }})</h4>  
+            <p class="nomi">Mahsulotlar soni: {{ item.maxsulotlar_soni }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
